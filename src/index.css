@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #E60012;
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #888888;
+  --muted-2: #555555;
+  --panel: #000000;             /* same as bg — no panel "card" feel */
+  --hairline: rgba(255, 255, 255, 0.12);   /* alpha-white separators, like the portfolio */
+  --hairline-strong: rgba(255, 255, 255, 0.20);
+
+  font-family: ui-monospace, "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* No border-radius anywhere by default. Sharp rectangles. */
+*, *::before, *::after { border-radius: 0; }
+
+button { font-family: inherit; cursor: pointer; transition: background-color 90ms linear, color 90ms linear, border-color 90ms linear; }
+input, select { font-family: inherit; transition: border-color 90ms linear; }
+
+input[type="text"], input[type="number"], select {
+  outline: none;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--hairline);
+}
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+  border-color: var(--accent);
+}
+
+/* Borderless / no-spinner number inputs (used for inline slider value readouts).
+   Looks identical to plain text until focused; cursor + caret on click. */
+input[type="number"].no-spin {
+  border: none;
+  background: transparent;
+}
+input[type="number"].no-spin::-webkit-inner-spin-button,
+input[type="number"].no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"].no-spin { -moz-appearance: textfield; appearance: textfield; }
+input[type="number"].no-spin:focus {
+  background: rgba(255, 255, 255, 0.04);
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+}
+
+input[type="file"] {
+  font-size: 11px;
+  color: var(--muted);
+  background: transparent;
+  padding: 0;
+}
+input[type="file"]::file-selector-button {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--hairline);
+  padding: 4px 10px;
+  margin-right: 8px;
+  font-family: inherit;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+input[type="file"]::file-selector-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ====================================================================
+   Range slider — square thumb, thin track, no shadows, no glow.
+   ==================================================================== */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--hairline);
+}
+input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: var(--hairline);
+  border: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4px;
+  height: 14px;
+  background: var(--accent);
+  margin-top: -7px;
+  border: none;
+  cursor: ew-resize;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 4px;
+  height: 14px;
+  background: var(--accent);
+  border: none;
+  cursor: ew-resize;
+}
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb,
+input[type="range"]:active::-webkit-slider-thumb {
+  width: 6px;
+}
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb,
+input[type="range"]:active::-moz-range-thumb {
+  width: 6px;
+}
+
+/* ====================================================================
+   Slider rows. Active state = 2px left border in accent. No bg gradient,
+   no rounded corners, no soft shadows.
+   ==================================================================== */
+.slider-row {
+  position: relative;
+  padding: 6px 0 4px 10px;
+  margin-left: -10px;
+  border-left: 2px solid transparent;
+}
+.slider-row:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+.slider-row:focus-within {
+  border-left-color: var(--accent);
+  background: rgba(230, 0, 18, 0.04);
+}
+.slider-row:focus-within .slider-value {
+  color: var(--accent);
+}
+
+/* ====================================================================
+   Section headers + collapsible animation.
+   ==================================================================== */
+.section-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 160ms ease-out, opacity 100ms linear;
+}
+.section-collapse[data-open="false"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.section-collapse > .section-collapse-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Loading-state pulse */
+@keyframes loading-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1.0; }
+}
+.loading-pulse { animation: loading-pulse 1s ease-in-out infinite; }
+
+/* Solid black behind the canvas — drop the hatch pattern */
+.canvas-bg { background: var(--bg); }
+
+/* Scrollbar */
+.panel-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline) transparent;
+}
+.panel-scroll::-webkit-scrollbar { width: 6px; }
+.panel-scroll::-webkit-scrollbar-track { background: transparent; }
+.panel-scroll::-webkit-scrollbar-thumb { background: var(--hairline); }
+.panel-scroll::-webkit-scrollbar-thumb:hover { background: var(--hairline-strong); }
