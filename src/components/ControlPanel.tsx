@@ -192,6 +192,33 @@ export function ControlPanel(props: Props) {
       <div className="mt-4 text-[10px] text-[var(--muted)] tabular-nums min-h-[14px]">
         {status}
       </div>
+
+      <div className="mt-3 flex gap-3 text-[9px] uppercase tracking-[0.18em] text-[var(--muted)]">
+        <a
+          href="https://3v4n.netlify.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[var(--accent)]"
+        >
+          blog
+        </a>
+        <a
+          href="https://github.com/n4m3name/NecroType"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[var(--accent)]"
+        >
+          github
+        </a>
+        <a
+          href="https://ko-fi.com/sysex"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[var(--accent)]"
+        >
+          support
+        </a>
+      </div>
     </aside>
   );
 }
