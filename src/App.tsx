@@ -20,7 +20,9 @@ import { renderPNGBlob } from "./lib/render-canvas";
 import type { Params } from "./types";
 
 export default function App() {
-  const [params, setParams] = useState<Params>(() => defaultParams());
+  // Initial state runs through feelHeavy so first paint is something interesting
+  // instead of the deterministic seed-42 default.
+  const [params, setParams] = useState<Params>(() => feelHeavy(defaultParams()));
   const fontLoader = useFontLoader(params.fontUrl);
 
   // When the font dropdown changes, fire off a load.
