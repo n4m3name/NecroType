@@ -44,5 +44,6 @@ export function renderSVG(data: RenderData, params: Params): string {
       `L${(seg.a.x - nx).toFixed(2)},${(seg.a.y - ny).toFixed(2)}Z`;
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb.x.toFixed(2)} ${vb.y.toFixed(2)} ${vb.w.toFixed(2)} ${vb.h.toFixed(2)}"><path d="${d}" fill="#000" fill-rule="nonzero"/></svg>`;
+  const fill = params.dark ? "#fff" : "#000";
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb.x.toFixed(2)} ${vb.y.toFixed(2)} ${vb.w.toFixed(2)} ${vb.h.toFixed(2)}"><path d="${d}" fill="${fill}" fill-rule="nonzero"/></svg>`;
 }

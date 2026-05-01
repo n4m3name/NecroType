@@ -32,9 +32,11 @@ export function renderCanvas(data: RenderData, canvas: HTMLCanvasElement, params
   }
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
-  // Reset to identity, fill white background in pixel coords
+  const bg = params.dark ? "#000000" : "#ffffff";
+  const ink = params.dark ? "#ffffff" : "#000000";
+  // Reset to identity, fill background in pixel coords
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = bg;
   ctx.fillRect(0, 0, bw, bh);
 
   // Aspect-fit (letterbox)
@@ -54,7 +56,7 @@ export function renderCanvas(data: RenderData, canvas: HTMLCanvasElement, params
   // Tendrils first (glyph fills cover them)
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  ctx.strokeStyle = "#000000";
+  ctx.strokeStyle = ink;
   const bins = binTendrils(data.tendrils);
   const EPS = 0.05;
   for (let i = 0; i < NUM_WIDTH_BINS; i++) {
@@ -79,7 +81,7 @@ export function renderCanvas(data: RenderData, canvas: HTMLCanvasElement, params
   }
 
   // Glyphs (filled, even-odd to handle holes)
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = ink;
   const path2d = new Path2D();
   for (const g of data.distortedGlyphs) {
     for (const c of g) {
@@ -114,10 +116,12 @@ export function renderPNGBlob(data: RenderData, params: Params, pixelWidth: numb
   const offY = (height - drawH) / 2;
   ctx.setTransform(scale, 0, 0, scale, offX - vb.x * scale, offY - vb.y * scale);
 
-  // Tendrils — same chain detection as the live renderer.
+  const ink = params.dark ? "#ffffff" : "#000000";
+
+  // Tendrils. Same chain detection as the live renderer.
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  ctx.strokeStyle = "#000000";
+  ctx.strokeStyle = ink;
   const bins = binTendrils(data.tendrils);
   const EPS = 0.05;
   for (let i = 0; i < NUM_WIDTH_BINS; i++) {
@@ -141,8 +145,9 @@ export function renderPNGBlob(data: RenderData, params: Params, pixelWidth: numb
     ctx.stroke();
   }
 
-  // Glyphs (no white fill — transparent background).
-  ctx.fillStyle = "#000000";
+  // Glyphs. PNG keeps a transparent background regardless of dark mode so the asset
+  // drops cleanly onto any surface; only the ink color flips.
+  ctx.fillStyle = ink;
   const path2d = new Path2D();
   for (const g of data.distortedGlyphs) {
     for (const c of g) {

@@ -68,6 +68,7 @@ export interface Params {
   stroke: number;
   firstPassBoost: number;
   taper: number;
+  dark: boolean;
 
   // RNG
   seed: number;

@@ -67,6 +67,7 @@ export function defaultParams(): Params {
     fontUrl: DEFAULT_FONT_URL,
     seed: 42,
     resampleStep: 2.5,
+    dark: false,
   };
   for (const s of SLIDERS) {
     (p as Record<string, number>)[s.id as string] = s.default;

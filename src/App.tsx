@@ -7,6 +7,7 @@ import { PreviewCanvas } from "./components/PreviewCanvas";
 import { useFontLoader } from "./hooks/useFontLoader";
 import { useRenderPipeline } from "./hooks/useRenderPipeline";
 import { useCanvasResize } from "./hooks/useCanvasResize";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 import { defaultParams } from "./lib/sliders";
 import {
   feelHeavy,
@@ -114,27 +115,46 @@ export default function App() {
   const overlayVisible = fontLoader.loading || !!fontLoader.error;
   const overlayMessage = fontLoader.error ? "load failed" : "loading";
 
-  return (
+  // Phone-mode is intentionally STRICT: must be both narrow AND a touch device.
+  // Plain narrow (i3 screen-split, narrow desktop window) does not trigger phone mode.
+  const isPhone = useMediaQuery("(max-width: 600px) and (pointer: coarse)");
+
+  const panel = (
+    <ControlPanel
+      params={params}
+      onParamChange={setParam}
+      onFontFile={handleFontFile}
+      onResetGlobalTransform={handleResetGlobal}
+      onResetGlyphDistortion={handleResetGlyph}
+      onReroll={handleReroll}
+      onRandomizeAll={handleRandomize}
+      onFeelHeavy={handleHeavy}
+      onDownloadSVG={handleDownloadSVG}
+      onDownloadPNG={handleDownloadPNG}
+      status={status}
+      isPhone={isPhone}
+    />
+  );
+
+  const canvas = (
+    <PreviewCanvas
+      ref={canvasRef}
+      loading={overlayVisible}
+      loadingMessage={overlayMessage}
+      errored={!!fontLoader.error}
+      dark={params.dark}
+    />
+  );
+
+  return isPhone ? (
+    <div className="flex flex-col h-screen">
+      {canvas}
+      {panel}
+    </div>
+  ) : (
     <div className="flex flex-row h-screen">
-      <ControlPanel
-        params={params}
-        onParamChange={setParam}
-        onFontFile={handleFontFile}
-        onResetGlobalTransform={handleResetGlobal}
-        onResetGlyphDistortion={handleResetGlyph}
-        onReroll={handleReroll}
-        onRandomizeAll={handleRandomize}
-        onFeelHeavy={handleHeavy}
-        onDownloadSVG={handleDownloadSVG}
-        onDownloadPNG={handleDownloadPNG}
-        status={status}
-      />
-      <PreviewCanvas
-        ref={canvasRef}
-        loading={overlayVisible}
-        loadingMessage={overlayMessage}
-        errored={!!fontLoader.error}
-      />
+      {panel}
+      {canvas}
     </div>
   );
 }

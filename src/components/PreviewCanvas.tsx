@@ -7,14 +7,15 @@ interface Props {
   loading: boolean;
   loadingMessage: string;
   errored?: boolean;
+  dark: boolean;
 }
 
 export const PreviewCanvas = forwardRef<HTMLCanvasElement, Props>(
-  function PreviewCanvas({ loading, loadingMessage, errored }, ref) {
+  function PreviewCanvas({ loading, loadingMessage, errored, dark }, ref) {
     return (
-      <div className="flex-1 flex items-center justify-center p-8 canvas-bg">
+      <div className="flex-1 flex items-center justify-center p-8 canvas-bg min-h-0">
         <div
-          className="relative w-full max-w-[1100px] bg-white border border-[var(--hairline)]"
+          className={`relative w-full max-w-[1100px] ${dark ? "bg-black" : "bg-white"}`}
           style={{ aspectRatio: "11 / 4" }}
         >
           <canvas ref={ref} className="block w-full h-full" />
