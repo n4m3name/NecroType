@@ -1,7 +1,7 @@
 # NecroType  
 
 <p align="center">
-  <img src="demos/NECROTYPE-796342641-dark.png" alt="NecroType — sample logo" width="900" />
+  <img src="demos/NECROTYPE-78660087-dark.png" alt="NecroType — sample logo" width="900" />
 </p>
 
 A generative design tool for death/black-metal logos. Type a band name, drag sliders, get a vector logo. Procedural, parameterized, deterministic given a seed — re-roll until you like it, then export.  
@@ -28,7 +28,7 @@ The exported PNGs are transparent (drop them straight into a poster / shirt mock
   <img src="demos/NECROTYPE-50528172-dark.png"  alt="" width="380" />
 </p>
 <p align="center">
-  <img src="demos/NECROTYPE-78660087-dark.png"  alt="" width="380" />
+  <img src="demos/NECROTYPE-796342641-dark.png" alt="" width="380" />
   <img src="demos/NECROTYPE-319710102-dark.png" alt="" width="380" />
 </p>
 
