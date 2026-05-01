@@ -130,7 +130,7 @@ export function ControlPanel(props: Props) {
         <button
           type="button"
           onClick={props.onReroll}
-          className={`${btnSecondary} mt-2`}
+          className={`${btnPrimary} mt-2`}
           title="same params, new seed"
         >
           re-roll

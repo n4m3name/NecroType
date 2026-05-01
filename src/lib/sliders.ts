@@ -55,10 +55,10 @@ export const SLIDERS: SliderDef[] = [
 ];
 
 export const SECTION_ORDER: { id: SectionId; label: string; resettable: boolean }[] = [
-  { id: "glyph-distortion", label: "distortion", resettable: true },
-  { id: "global-transform", label: "transform",  resettable: true },
-  { id: "extrusion",        label: "extrusion",  resettable: false },
-  { id: "render",           label: "render",     resettable: false },
+  { id: "glyph-distortion", label: "Distort",   resettable: true },
+  { id: "global-transform", label: "Transform", resettable: true },
+  { id: "extrusion",        label: "Extrude",   resettable: false },
+  { id: "render",           label: "Render",    resettable: false },
 ];
 
 export function defaultParams(): Params {
